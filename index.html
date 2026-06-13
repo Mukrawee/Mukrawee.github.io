@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Programming | เรียนภาษาอังกฤษคู่การเขียนโปรแกรม ป.4</title>
+    <meta name="description" content="สื่อการเรียนการสอนวิชาการเขียนโปรแกรมภาษาอังกฤษเบื้องต้น สำหรับนักเรียนชั้นประถมศึกษาปีที่ 4 สนุกสนานกับธีมพาสเทล 3D และแบบทดสอบตามหลัก Bloom's Taxonomy">
+    
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="app.showView('home')">
+                <img src="assets/robot_mascot.png" alt="Logo" onerror="this.src='https://img.icons8.com/color/96/000000/robot-vacuum.png'">
+                <div class="logo-text">Eng<span>Prog</span></div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" id="nav-home" onclick="app.showView('home')"><i class="fa-solid fa-house"></i> หน้าแรก</a></li>
+                <li><a href="#" class="nav-link" id="nav-greetings" onclick="app.startLevel(1)"><i class="fa-solid fa-comments"></i> 1. Greetings</a></li>
+                <li><a href="#" class="nav-link" id="nav-personal" onclick="app.startLevel(2)"><i class="fa-solid fa-address-card"></i> 2. Personal Info</a></li>
+                <li><a href="#" class="nav-link" id="nav-routines" onclick="app.startLevel(3)"><i class="fa-solid fa-clock"></i> 3. Daily Routines</a></li>
+            </ul>
+
+            <!-- Profile / Score Info -->
+            <div class="user-badge" id="user-badge" style="display: none;">
+                <i class="fa-solid fa-star"></i>
+                <span id="user-display-name">น้องน้ำหวาน</span> | 
+                <span id="user-display-score">Score: 0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- 1. NAME SETUP VIEW -->
+        <section id="view-setup" class="animate-fade-in">
+            <div class="setup-card">
+                <div style="font-size: 5rem; margin-bottom: 20px;">🤖</div>
+                <h2>ยินดีต้อนรับสู่ห้องเรียนเขียนโปรแกรมภาษาอังกฤษ!</h2>
+                <p>ก่อนที่เราจะเริ่มผจญภัยกัน บอกชื่อเล่นของน้องๆ ให้พี่โรบอทรู้หน่อยนะค้าบ 😊</p>
+                <div class="input-group">
+                    <label for="student-name">ชื่อเล่นของคุณ (Nickname)</label>
+                    <input type="text" id="student-name" class="input-control" placeholder="เช่น น้ำหวาน, ก้อง..." autocomplete="off">
+                </div>
+                <button class="btn btn-primary btn-block" onclick="app.saveProfile()">
+                    <i class="fa-solid fa-circle-play"></i> เริ่มเรียนกันเลย!
+                </button>
+            </div>
+        </section>
+
+        <!-- 2. HOME VIEW -->
+        <section id="view-home" class="animate-fade-in" style="display: none;">
+            <!-- Hero Banner -->
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-tag">🌟 สำหรับชั้นประถมศึกษาปีที่ 4</div>
+                    <h1>เรียนรู้ <span>English</span><br>ควบคู่ <span>Programming</span></h1>
+                    <p>ยินดีต้อนรับน้องๆ เข้าสู่บทเรียนสนุกๆ ที่จะช่วยให้เก่งอังกฤษและเข้าใจตรรกะการเขียนโปรแกรมคอมพิวเตอร์อย่างง่ายๆ ไปพร้อมกัน! มาผ่านทั้ง 3 ระดับเพื่อรับเกียรติบัตรสุดเท่กันเลย!</p>
+                    <button class="btn btn-accent" onclick="app.autoStartNextLevel()">
+                        <i class="fa-solid fa-play"></i> เริ่มบทเรียนถัดไป
+                    </button>
+                </div>
+                <div class="hero-image">
+                    <img src="assets/hero_banner.png" alt="English for Programming Mascot" onerror="this.src='https://img.icons8.com/clouds/500/000000/learning.png'">
+                </div>
+            </div>
+
+            <!-- Learning Track Title -->
+            <div class="track-title">
+                <h2>แผนที่การเรียนรู้ (Learning Track)</h2>
+                <p>เรียนรู้วิธีการทักทาย, ข้อมูลส่วนตัว และกิจวัตรประจำวันแบบนักเขียนโปรแกรมตัวน้อย!</p>
+            </div>
+
+            <!-- Levels Grid -->
+            <div class="levels-grid">
+                <!-- Level 1 Card -->
+                <div class="level-card" id="card-lvl-1" onclick="app.startLevel(1)">
+                    <span class="level-badge">บทที่ 1</span>
+                    <div class="level-icon"><i class="fa-solid fa-face-smile"></i></div>
+                    <h3>Greetings (การทักทาย)</h3>
+                    <p>เรียนรู้การทักทายภาษาอังกฤษเบื้องต้น เปรียบเทียบกับคำสั่ง "Hello World" ซึ่งเป็นประโยคแรกที่คอมพิวเตอร์ทักทายเราเมื่อเขียนโปรแกรม!</p>
+                    <div class="level-progress">
+                        <div class="level-progress-bar" id="pb-lvl-1"></div>
+                    </div>
+                </div>
+
+                <!-- Level 2 Card -->
+                <div class="level-card locked" id="card-lvl-2" onclick="app.startLevel(2)">
+                    <span class="level-badge" id="badge-lvl-2">🔒 ล็อก</span>
+                    <div class="level-icon"><i class="fa-solid fa-address-card"></i></div>
+                    <h3>Personal Info (ข้อมูลส่วนตัว)</h3>
+                    <p>แนะนำตัวเอง บอกชื่อ อายุ และงานอดิเรก เรียนรู้คำศัพท์พร้อมกับแนวคิดเรื่อง "ตัวแปร (Variables)" ที่ใช้เก็บข้อมูลในคอมพิวเตอร์!</p>
+                    <div class="level-progress">
+                        <div class="level-progress-bar" id="pb-lvl-2"></div>
+                    </div>
+                </div>
+
+                <!-- Level 3 Card -->
+                <div class="level-card locked" id="card-lvl-3" onclick="app.startLevel(3)">
+                    <span class="level-badge" id="badge-lvl-3">🔒 ล็อก</span>
+                    <div class="level-icon"><i class="fa-solid fa-clock"></i></div>
+                    <h3>Daily Routines (กิจวัตรประจำวัน)</h3>
+                    <p>เรียนรู้วิธีบอกกิจกรรมประจำวัน เช่น การแปรงฟัน กินข้าว เรียนหนังสือ และเรียนรู้แนวคิด "ลูป (Loops) / การทำซ้ำ" และ "การเรียงลำดับอัลกอริทึม"!</p>
+                    <div class="level-progress">
+                        <div class="level-progress-bar" id="pb-lvl-3"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Certificate Button in Home (Visible when all unlocked) -->
+            <div id="cert-unlocked-banner" style="display: none; text-align: center; background: white; padding: 30px; border-radius: var(--border-radius-lg); border: 3px dashed var(--accent); margin-bottom: 50px;" class="animate-fade-in">
+                <h2 style="color: var(--accent-dark); margin-bottom: 10px;">🎉 ยินดีด้วย! เรียนจบครบทุกบทเรียนแล้ว 🎉</h2>
+                <p style="margin-bottom: 20px;">น้องๆ ได้เรียนรู้และตอบคำถามครบถ้วนแล้ว กดปุ่มด้านล่างเพื่อรับเกียรติบัตรกันได้เลย!</p>
+                <button class="btn btn-accent" onclick="app.showView('certificate')">
+                    <i class="fa-solid fa-award"></i> รับเกียรติบัตร (Get Certificate)
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. LESSON WORKSPACE VIEW -->
+        <section id="view-lesson" class="animate-fade-in" style="display: none;">
+            <div class="lesson-container">
+                <!-- Sidebar -->
+                <aside class="lesson-sidebar">
+                    <div class="sidebar-title" id="lesson-sidebar-title">บทที่ 1: Greetings</div>
+                    <ul class="sidebar-menu">
+                        <li><a class="sidebar-item active" id="sb-theory" onclick="app.showSubPage('theory')"><i class="fa-solid fa-book-open"></i> บทเรียน (Lesson)</a></li>
+                        <li><a class="sidebar-item" id="sb-vocab" onclick="app.showSubPage('vocab')"><i class="fa-solid fa-spell-check"></i> คำศัพท์ (Vocabulary)</a></li>
+                        <li><a class="sidebar-item" id="sb-activity" onclick="app.showSubPage('activity')"><i class="fa-solid fa-gamepad"></i> กิจกรรม (Activity)</a></li>
+                        <li><a class="sidebar-item" id="sb-quiz" onclick="app.showSubPage('quiz')"><i class="fa-solid fa-pencil"></i> แบบทดสอบ (Quiz)</a></li>
+                    </ul>
+                </aside>
+
+                <!-- Lesson Content Area -->
+                <article class="lesson-content">
+                    <div class="lesson-header">
+                        <h2 id="lesson-title">Greetings & Hello World</h2>
+                        <p id="lesson-subtitle">คำทักทายของมนุษย์ และคำสั่งทักทายของคอมพิวเตอร์</p>
+                    </div>
+                    
+                    <div class="lesson-body" id="lesson-body-content">
+                        <!-- Dynamic content loaded via app.js -->
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 4. QUIZ WORKSPACE VIEW -->
+        <section id="view-quiz" class="animate-fade-in" style="display: none;">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <div class="quiz-badge" id="quiz-level-badge">Quiz - Level 1</div>
+                    <h2 id="quiz-level-title">แบบทดสอบการทักทาย (Greetings Quiz)</h2>
+                    <p>มาทดสอบความรู้ตามหลักระดับการเรียนรู้กันนะครับ!</p>
+                    <div class="quiz-progress-outer">
+                        <div class="quiz-progress-inner" id="quiz-progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="quiz-question-box" id="quiz-question-box">
+                    <!-- Dynamic Question Content -->
+                </div>
+
+                <div id="quiz-feedback" style="display: none; padding: 15px; border-radius: var(--border-radius-md); margin-bottom: 20px; font-weight: 700; text-align: center;">
+                </div>
+
+                <div style="text-align: right;">
+                    <button class="btn btn-primary" id="btn-next-question" style="display: none;" onclick="app.nextQuizQuestion()">
+                        ข้อถัดไป <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CERTIFICATE VIEW -->
+        <section id="view-certificate" class="animate-fade-in" style="display: none;">
+            <div class="cert-card" id="cert-card-print">
+                <div class="cert-title">เกียรติบัตรผู้เชี่ยวชาญการเขียนโปรแกรมภาษาอังกฤษ</div>
+                <div class="cert-subtitle">CERTIFICATE OF ENGLISH PROGRAMMING ACHIEVER</div>
+                <div>เกียรติบัตรฉบับนี้มอบให้เพื่อแสดงว่า</div>
+                <div class="cert-name" id="cert-student-name">น้องน้ำหวาน</div>
+                <div class="cert-text">
+                    ได้เรียนรู้เนื้อหาพื้นฐานและผ่านเกณฑ์การทดสอบวัดความรู้อ้างอิงตามหลักทฤษฎีบลูม (Bloom's Taxonomy) ครบทั้ง 3 บทเรียน (Greetings, Personal Information, Daily Routines) 
+                    ในรายวิชาการเขียนโปรแกรมภาษาอังกฤษเบื้องต้นสำหรับชั้นประถมศึกษาปีที่ 4
+                </div>
+                <div class="cert-footer">
+                    <div class="cert-sign">
+                        <strong>พี่โรบอท EngProg</strong><br>
+                        ผู้สอนและผู้ทดสอบหลัก
+                    </div>
+                    <div class="cert-badge-img">🏆</div>
+                    <div class="cert-sign">
+                        <strong id="cert-date">13 มิถุนายน 2569</strong><br>
+                        วันที่สำเร็จการศึกษา
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px; display: flex; justify-content: center; gap: 20px;">
+                <button class="btn btn-primary" onclick="window.print()">
+                    <i class="fa-solid fa-print"></i> พิมพ์เกียรติบัตร (Print)
+                </button>
+                <button class="btn btn-accent" onclick="app.showView('home')">
+                    <i class="fa-solid fa-house"></i> กลับสู่หน้าหลัก
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container" style="margin: 0 auto; padding: 0;">
+            <p>© 2026 EngProg - สื่อการสอนเขียนโปรแกรมภาษาอังกฤษเบื้องต้น ป.4. พัฒนาขึ้นโดย Mukrawee</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.6;">ออกแบบด้วยธีมฟ้าพาสเทล 3D ตกแต่งตามทฤษฎี Bloom's Taxonomy</p>
+        </div>
+    </footer>
+
+    <!-- App Logic Script -->
+    <script src="app.js"></script>
+</body>
+</html>
